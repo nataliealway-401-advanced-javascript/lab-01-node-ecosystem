@@ -1,0 +1,29 @@
+{
+  "name": "01-node-ecosystem",
+  "version": "0.0.1",
+  "description": "this will be sooooo cool",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "lint": "eslint '**/*.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.14.3",
+    "jest": "^24.9.0",
+    "lint": "^0.7.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem/issues"
+  },
+  "homepage": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem#readme"
+}
