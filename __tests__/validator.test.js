@@ -6,13 +6,14 @@ describe('validator module performs basic validation of', () => {
 
   // TODO: Make this series of tests less repetitive ... DRY it out
 
+  let str = 'yes';
+  let num = 1;
+  let arr = ['a'];
+  let obj = {x:'y'};
+  let func = () => {};
+  let bool = false;
+
   it('strings', () => {
-    let str = 'yes';
-    let num = 1;
-    let arr = ['a'];
-    let obj = {x:'y'};
-    let func = () => {};
-    let bool = false;
     expect(validator.isString(str)).toBeTruthy();
     expect(validator.isString(num)).toBeFalsy();
     expect(validator.isString(arr)).toBeFalsy();
@@ -22,11 +23,21 @@ describe('validator module performs basic validation of', () => {
   });
 
   it('numbers', () => {
-    expect(true).toBeFalsy();
+    expect(validator.isNumber(str)).toBeFalsy();
+    expect(validator.isNumber(num)).toBeTruthy();
+    expect(validator.isNumber(arr)).toBeFalsy();
+    expect(validator.isNumber(obj)).toBeFalsy();
+    expect(validator.isNumber(func)).toBeFalsy();
+    expect(validator.isNumber(bool)).toBeFalsy();
   });
 
   it('arrays', () => {
-    expect(true).toBeFalsy();
+    expect(validator.isArray(str)).toBeFalsy();
+    expect(validator.isArray(num)).toBeFalsy();
+    expect(validator.isArray(arr)).toBeTruthy();
+    expect(validator.isArray(obj)).toBeFalsy();
+    expect(validator.isArray(func)).toBeFalsy();
+    expect(validator.isArray(bool)).toBeFalsy();
   });
 
   it('objects', () => {
