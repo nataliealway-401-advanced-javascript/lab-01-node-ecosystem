@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "Faker": "^0.7.2",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.14.3",
     "jest": "^24.9.0",
@@ -25,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem/issues"
   },
-  "homepage": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem#readme"
+  "homepage": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem#readme",
+  "devDependencies": {
+    "jsdoc": "^3.6.3"
+  }
 }
