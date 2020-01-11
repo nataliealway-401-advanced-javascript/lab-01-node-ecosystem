@@ -1,27 +1,25 @@
 'use strict';
 
-const validator = require('../lib/validator.js');
 const faker = require('faker');
+const validator = require('../lib/validator.js');
+
+let str = 'yes';
+let num = 1;
+let arr = ['a'];
+let obj = {x:'y'};
+let func = () => {};
+let bool = false;
 
 const schema = {
   fields: {
     id: {type: 'string', required: true},
     name: {type: 'string', required: true},
-    age: {type: 'number', required: true},
+    age: {type: 'number'},
     children: { type: 'array', valueType: 'string' },
   },
 };
 
-describe('validator module performs basic validation of', () => {
-
-  // TODO: Make this series of tests less repetitive ... DRY it out
-
-  let str = 'yes';
-  let num = 1;
-  let arr = ['a'];
-  let obj = {x:'y'};
-  let func = () => {};
-  let bool = false;
+describe('Validator module performs basic validation of', () => {
 
   it('strings', () => {
     expect(validator.isString(str)).toBeTruthy();
@@ -33,8 +31,8 @@ describe('validator module performs basic validation of', () => {
   });
 
   it('numbers', () => {
-    expect(validator.isNumber(num)).toBeTruthy();
     expect(validator.isNumber(str)).toBeFalsy();
+    expect(validator.isNumber(num)).toBeTruthy();
     expect(validator.isNumber(arr)).toBeFalsy();
     expect(validator.isNumber(obj)).toBeFalsy();
     expect(validator.isNumber(func)).toBeFalsy();
@@ -42,49 +40,64 @@ describe('validator module performs basic validation of', () => {
   });
 
   it('arrays', () => {
-    expect(validator.isArray(arr)).toBeTruthy();
     expect(validator.isArray(str)).toBeFalsy();
     expect(validator.isArray(num)).toBeFalsy();
+    expect(validator.isArray(arr)).toBeTruthy();
     expect(validator.isArray(obj)).toBeFalsy();
     expect(validator.isArray(func)).toBeFalsy();
     expect(validator.isArray(bool)).toBeFalsy();
   });
 
+  it('arrays of type', () => {
+    let numArray = [1,2,3];
+    let strArray = ['a','b','c'];
+
+    expect(validator.isArray(str)).toBeFalsy();
+    expect(validator.isArray(num)).toBeFalsy();
+    expect(validator.isArray(obj)).toBeFalsy();
+    expect(validator.isArray(func)).toBeFalsy();
+    expect(validator.isArray(bool)).toBeFalsy();
+    expect(validator.isArray(arr)).toBeTruthy();
+    expect(validator.isArray(numArray, 'number')).toBeTruthy();
+    expect(validator.isArray(numArray, 'string')).toBeFalsy();
+    expect(validator.isArray(strArray, 'string')).toBeTruthy();
+    expect(validator.isArray(strArray, 'number')).toBeFalsy();
+  });
+
   it('objects', () => {
-    expect(validator.isObject(obj)).toBeTruthy();
     expect(validator.isObject(str)).toBeFalsy();
     expect(validator.isObject(num)).toBeFalsy();
     expect(validator.isObject(arr)).toBeFalsy();
+    expect(validator.isObject(obj)).toBeTruthy();
     expect(validator.isObject(func)).toBeFalsy();
     expect(validator.isObject(bool)).toBeFalsy();
   });
 
   it('booleans', () => {
-    expect(validator.isBoolean(bool)).toBeTruthy();
-    expect(validator.isBoolean(obj)).toBeFalsy();
-    expect(validator.isBoolean(arr)).toBeFalsy();
     expect(validator.isBoolean(str)).toBeFalsy();
     expect(validator.isBoolean(num)).toBeFalsy();
+    expect(validator.isBoolean(arr)).toBeFalsy();
+    expect(validator.isBoolean(obj)).toBeFalsy();
     expect(validator.isBoolean(func)).toBeFalsy();
+    expect(validator.isBoolean(bool)).toBeTruthy();
   });
 
   it('functions', () => {
+    expect(validator.isFunction(str)).toBeFalsy();
+    expect(validator.isFunction(num)).toBeFalsy();
+    expect(validator.isFunction(arr)).toBeFalsy();
+    expect(validator.isFunction(obj)).toBeFalsy();
     expect(validator.isFunction(func)).toBeTruthy();
     expect(validator.isFunction(bool)).toBeFalsy();
-    expect(validator.isFunction(obj)).toBeFalsy();
-    expect(validator.isFunction(arr)).toBeFalsy();
-    expect(validator.isFunction(num)).toBeFalsy();
-    expect(validator.isFunction(str)).toBeFalsy();
   });
 
 });
 
-describe('validator module performs complex validations', () => {
-
-  it('validates the basic schema isValid() function', () => {
-    //go through schema and fill in the perfect values for every field.
-    let testRecord = {};
-    for (let field in schema.fields) {
+describe('Validator module evaluates a basic schema', () => {
+  it('isValid() validates a good record', () => {
+    // Go through the schema and fill in perfect values for every field
+    var testRecord = {};
+    for (var field in schema.fields) {
       switch (schema.fields[field].type) {
       case 'boolean':
         testRecord[field] = faker.random.boolean();
@@ -104,33 +117,40 @@ describe('validator module performs complex validations', () => {
         null;
       }
     }
+
     expect(validator.isValid(schema, testRecord)).toBeTruthy();
   });
 
+  it('isValid() returns undefined on type mismatch', () => {
+    // Go through the schema and fill in incorrect values for every field
+    var testRecord = {};
+    for (var field in schema.fields) {
+      switch (schema.fields[field].type) {
+      case 'boolean':
+        testRecord[field] = faker.random.number();
+        break;
+      case 'number':
+        testRecord[field] = faker.random.word();
+        break;
+      case 'string':
+        testRecord[field] = faker.random.number();
+        break;
+      default:
+        null;
+      }
+    }
+    expect(validator.isValid(schema, testRecord)).toBeFalsy();
+  });
 
-  // it('validates the presence of required object properties at any level', () => {
-  //   // i.e. does person.hair.color exist and have a good value, not just person.hair
-  //   expect(true).toBeFalsy();
-  // });
-
-
-
-  // it('validates the proper types of object properties', () => {
-  //   // i.e. person.name must be a string, etc.
-  //   expect(true).toBeFalsy();
-  // });
-
-  // it('validates the types of values contained in an array', () => {
-  //   // i.e. an array of all strings or numbers
-  //   expect(true).toBeFalsy();
-  // });
-
-  // it('validates a value array against an approved list', () => {
-  //   // i.e. a string might only be allowed to be "yes" or "no"
-  //   expect(true).toBeFalsy();
-  // });
-
-  // TODO: Cover so, so many more cases
+  it('isValid() returns undefined with missing requirements', () => {
+    // Go through the schema and fill in perfect values for every field
+    var testRecord = {};
+    for (var field in schema.fields) {
+      if (schema.fields[field].required) {
+        testRecord[field] = null;
+      }
+    }
+    expect(validator.isValid(schema, testRecord)).toBeFalsy();
+  });
 
 });
-
