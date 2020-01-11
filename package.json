@@ -19,7 +19,9 @@
     "faker": "^4.1.0",
     "jest": "^24.9.0",
     "lint": "^0.7.0",
-    "node": "^13.6.0"
+    "node": "^13.6.0",
+    "nodemon": "^2.0.2",
+    "start": "^5.1.0"
   },
   "directories": {
     "lib": "lib"
@@ -33,6 +35,7 @@
   },
   "homepage": "https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem#readme",
   "devDependencies": {
-    "jsdoc": "^3.6.3"
+    "jsdoc": "^3.6.3",
+    "start-server-and-test": "^1.10.6"
   }
 }
