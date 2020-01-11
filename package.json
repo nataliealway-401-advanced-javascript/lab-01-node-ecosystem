@@ -15,7 +15,8 @@
     "eslint-plugin-react": "^7.14.3",
     "faker": "^4.1.0",
     "jest": "^24.9.0",
-    "lint": "^0.7.0"
+    "lint": "^0.7.0",
+    "node": "^13.6.0"
   },
   "directories": {
     "lib": "lib"
