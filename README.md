@@ -7,9 +7,6 @@
 * [travis](https://www.travis-ci.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem)
 
 
-#### Documentation
-* [jsdoc](link)
-
 ### Modules
 #### `validator.js`
 ##### Exported Values and Methods
