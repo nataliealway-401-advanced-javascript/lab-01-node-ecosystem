@@ -1,1 +1,32 @@
-# lab-01-node-ecosystem
+# Lab-01: Node Ecosystem
+
+### Author: Natalie Alway
+
+### Links and Resources
+* [submission PR](https://github.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem/pull/2)
+* [travis](https://www.travis-ci.com/nataliealway-401-advanced-javascript/lab-01-node-ecosystem)
+
+
+### Modules
+#### `validator.js`
+##### Exported Values and Methods
+
+###### `isString(input) -> boolean`
+###### `isNumber(input) -> boolean`
+###### `isArray(input) -> boolean`
+###### `isObject(input) -> boolean`
+###### `isBoolean(input) -> boolean`
+###### `isFunction(input) -> boolean`
+###### `isCorrectType(input, field) -> boolean'
+
+
+
+
+
+### Setup
+#### Running the app
+* Unit tests - 'npm test'
+  
+
+#### UML  
+![White Board Image](/assets/lab01WB.jpg)
